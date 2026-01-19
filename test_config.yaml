@@ -1,0 +1,63 @@
+# VMware Avi Load Balancer Test Automation Framework Configuration
+# This file contains all configuration required to run the test automation framework
+
+# API Configuration
+api:
+  # Base URL of the mock Avi Load Balancer API
+  # Note: This is the authenticated mock API server
+  base_url: "https://semantic-brandea-banao-dc049ed0.koyeb.app/"
+  
+  # API request timeout in seconds
+  timeout: 30
+
+# User Credentials
+# IMPORTANT: For security, consider using environment variables or secrets management
+# in production environments instead of storing credentials in config files
+credentials:
+  # Username for registration and login
+  username: "mytestuser123"
+  
+  # Password for registration and login
+  password: "mypassword123"
+
+# Target Virtual Service Configuration
+target_virtual_service: "backend-vs-t1r_1000-1"
+
+# Parallelism Configuration
+# Controls how test cases are executed (sequential, threading, multiprocessing, asyncio)
+parallelism:
+  # Method: 'sequential', 'threading', 'multiprocessing', or 'asyncio'
+  # 'sequential': Run test cases one after another
+  # 'threading': Run test cases in parallel using threads (best for I/O-bound tasks)
+  # 'multiprocessing': Run test cases in parallel using separate processes
+  # 'asyncio': Run test cases asynchronously
+  method: "threading"
+  
+  # Maximum number of parallel workers (for threading and multiprocessing)
+  max_workers: 4
+
+# Test Cases
+# Define multiple test cases to be executed by the framework
+test_cases:
+  # Test Case 1: Main test to disable the target virtual service
+  - name: "Test Case 1: Disable Backend VS T1R 1000-1"
+    description: "Test disabling backend-vs-t1r_1000-1 virtual service"
+    target_virtual_service: "backend-vs-t1r_1000-1"
+    enabled: true
+  
+  #Test Case 2: Additional test case (demonstrates parallelism capability)
+  - name: "Test Case 2: Disable Backend VS T1R 1000-2"
+    description: "Test disabling another virtual service"
+    target_virtual_service: "backend-vs-t1r_1000-2"
+    enabled: true
+
+# Logging Configuration
+logging:
+  # Log level: DEBUG, INFO, WARNING, ERROR, CRITICAL
+  level: "INFO"
+  
+  # Log file path (relative to project root)
+  file: "test_execution.log"
+  
+  # Whether to log to console as well
+  console_output: true
